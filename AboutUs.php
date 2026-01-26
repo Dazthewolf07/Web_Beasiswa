@@ -1,0 +1,63 @@
+<?php
+include 'koneksi.php';
+include 'Navbar.php'; 
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tentang kita - Web Beasiswa</title>
+    <link rel="stylesheet" href="Style.css" />
+  </head>
+  <body>
+    
+    <section class="hero" aria-label="Banner utama dengan gambar pribadi atau latar belakang inspiratif">
+      <div class="hero-content">
+        <p class="hero-welcome">Selamat datang di Web Beasiswa saya:</p>
+        <h1 class="hero-title">Tentang saya:</h1>
+        <p class="bio-text">
+          Halo! Saya Arya Nugraha Al Gizhwan, seorang pengembang web dengan passion untuk menciptakan hal-hal inovatif. Saya telah menempuh perjalanan Sekolah Menegah Kejuruan selama 3 tahun terakhir. Di sini, saya berbagi cerita,
+          pengalaman, dan inspirasi saya untuk membantu orang lain mencapai potensi maksimal dan mendapatkan beasiswa mereka.
+        </p>
+      </div>
+    </section>
+
+    <section class="why-choose" aria-labelledby="why-choose-title">
+      <div class="why-left">
+        <small>Alasan yang tak membuatmu ragu</small>
+        <h2 id="why-choose-title">
+          Mengapa memilih <br />
+          Web Beasiswa?
+        </h2>
+      </div>
+      <div class="why-right">
+        <div class="feature" tabindex="0" aria-label="Fitur akses mudah: Materi, tugas, dan feedback tersimpan rapi">
+          <div class="icon-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M3 13h2v-2H3v2zm0-4h2V7H3v2zm0 8h2v-2H3v2zM7 13h11v-2H7v2zm0-4h11V7H7v2zm0 8h11v-2H7v2z" />
+            </svg>
+          </div>
+          <div class="feature-text">
+            <div class="feature-title">Easy Access</div>
+            <div class="feature-desc">Materi, tugas, dan feedback tersimpan rapi</div>
+          </div>
+        </div>
+        <div class="feature" tabindex="0" aria-label="Fitur evaluasi kinerja: Pemberian evaluasi akhir belajar">
+          <div class="icon-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-4-4zM7 19v-1h6v1H7zm4-5H7v-2h4v2zm0-4H7V8h4v2z" />
+            </svg>
+          </div>
+          <div class="feature-text">
+            <div class="feature-title">Evaluation Performance</div>
+            <div class="feature-desc">Pemberian evaluasi akhir belajar</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
