@@ -28,7 +28,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <a href="logout.php" class="btn-logout">Logout</a>
       </div>
     <?php else: ?>
-      <a href="SignIn.php" class="btn-daftar">Daftar</a>
+      <a href="Login.php" class="btn-daftar">Login</a>
     <?php endif; ?>
   </div>
 </nav>

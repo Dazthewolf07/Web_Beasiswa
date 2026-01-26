@@ -438,7 +438,7 @@ $deadlineDekat = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as tota
 
         <div class="menu">
             <a href="AddBeasiswa.php">➕ Tambah Beasiswa</a>
-            <a href="kelola_beasiswa.php">📋 Kelola Beasiswa</a>
+            <a href="KelolaBeasiswa.php">📋 Kelola Beasiswa</a>
             <a href="../Logout.php">🚪 Logout</a>
         </div>
 

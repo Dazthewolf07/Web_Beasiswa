@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn,
     "SELECT * FROM users WHERE email='$email'"
   );
-  echo "tes";
+
   if (mysqli_num_rows($query) === 1) {
 
     $row = mysqli_fetch_assoc($query);
