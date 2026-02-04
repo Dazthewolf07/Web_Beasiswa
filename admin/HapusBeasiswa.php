@@ -17,4 +17,4 @@ unlink("../uploads/" . $row['image']);
 
 mysqli_query($conn, "DELETE FROM beasiswa WHERE id=$id");
 
-header("Location: add_beasiswa.php");
+header("Location: Dashboard.php");

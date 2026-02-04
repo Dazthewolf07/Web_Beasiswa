@@ -8,20 +8,61 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-/* ===== AMBIL ID ===== */
-if (!isset($_GET['id'])) {
-    header("Location: kelola_beasiswa.php");
+/* ================== PROSES UPDATE ================== */
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $id = $_POST['id'];
+    $title = $_POST['title'];
+    $provider = $_POST['provider'];
+    $quota = $_POST['quota'];
+    $deadline = $_POST['deadline'];
+    $description = $_POST['description'];
+
+    if (!empty($_FILES['gambar']['name'])) {
+
+        $namaFile = $_FILES['gambar']['name'];
+        $tmp = $_FILES['gambar']['tmp_name'];
+
+        move_uploaded_file($tmp, "../uploads/$namaFile");
+
+        $query = "UPDATE beasiswa SET
+                    title='$title',
+                    provider='$provider',
+                    quota='$quota',
+                    deadline='$deadline',
+                    description='$description',
+                    image='$namaFile'
+                  WHERE id='$id'";
+    } else {
+
+        $query = "UPDATE beasiswa SET
+                    title='$title',
+                    provider='$provider',
+                    quota='$quota',
+                    deadline='$deadline',
+                    description='$description'
+                  WHERE id='$id'";
+    }
+
+    mysqli_query($koneksi, $query);
+
+    header("Location: KelolaBeasiswa.php");
     exit;
 }
 
-$id = intval($_GET['id']);
+/* ===== AMBIL DATA UNTUK FORM ===== */
+if (!isset($_GET['id'])) {
+    header("Location: KelolaBeasiswa.php");
+    exit;
+}
 
-/* ===== AMBIL DATA ===== */
-$data = mysqli_query($conn, "SELECT * FROM beasiswa WHERE id=$id");
+$id = $_GET['id'];
+
+$data = mysqli_query($koneksi, "SELECT * FROM beasiswa WHERE id='$id'");
 $beasiswa = mysqli_fetch_assoc($data);
 
 if (!$beasiswa) {
-    header("Location: kelola_beasiswa.php");
+    header("Location: KelolaBeasiswa.php");
     exit;
 }
 ?>
@@ -137,51 +178,46 @@ if (!$beasiswa) {
 
         <h2>Edit Beasiswa</h2>
 
-        <form action="Dashboard.php" method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
 
             <input type="hidden" name="id" value="<?= $beasiswa['id']; ?>">
 
             <div class="form-group">
                 <label>Nama Beasiswa</label>
-                <input type="text" name="nama_beasiswa" value="<?= $beasiswa['nama_beasiswa']; ?>" required>
+                <input type="text" name="title"
+                    value="<?= htmlspecialchars($beasiswa['title']); ?>">
             </div>
 
-            <div class="form-group">
+            <div class=" form-group">
                 <label>Penyelenggara</label>
-                <input type="text" name="penyelenggara" value="<?= $beasiswa['penyelenggara']; ?>">
+                <input type="text" name="provider" value="<?= htmlspecialchars($beasiswa['provider']); ?>">
             </div>
 
-            <div class="form-group">
+            <div class=" form-group">
                 <label>Jumlah Kuota</label>
-                <input type="number" name="kuota" value="<?= $beasiswa['kuota']; ?>" required>
-            </div>
+                <input type="number" name="quota" value="<?= $beasiswa['quota']; ?>">
 
-            <div class="form-group">
-                <label>Deadline</label>
-                <input type="date" name="deadline" value="<?= $beasiswa['deadline']; ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label>Keterangan</label>
-                <textarea name="keterangan"><?= $beasiswa['keterangan']; ?></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Gambar (opsional)</label>
-                <input type="file" name="gambar">
-
-                <div class="preview-img">
-                    <img src="../uploads/<?= $beasiswa['gambar']; ?>">
+                <div class=" form-group">
+                    <label>Deadline</label>
+                    <input type="date" name="deadline" value="<?= $beasiswa['deadline']; ?>">
                 </div>
-            </div>
 
-            <button type="submit" class="btn-submit">💾 Simpan Perubahan</button>
-            <form action="Dashboard.php" method="POST" enctype="multipart/form-data">
+                <div class=" form-group">
+                    <label>Keterangan</label>
+                    <textarea name="description">
+                <?= htmlspecialchars($beasiswa['description']); ?></textarea>
 
+                    <div class="form-group">
+                        <label>Gambar (opsional)</label>
+                        <input type="file" name="gambar">
 
-            </form>
+                        <div class="preview-img">
+                            <img src="../uploads/<?= $beasiswa['image']; ?>">
+                        </div>
+                    </div>
 
-    </div>
+                    <button type="submit" class="btn-submit">💾 Simpan Perubahan</button>
+                </div>
 
 </body>
 

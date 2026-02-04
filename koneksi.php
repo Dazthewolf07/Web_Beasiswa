@@ -10,9 +10,10 @@ if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-$koneksi = mysqli_connect("localhost","root","","web_beasiswa_ukk");
+$koneksi = new mysqli("localhost", "root", "", "web_beasiswa_ukk");
 
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-?>
+
+mysqli_select_db($koneksi, "web_beasiswa_ukk");

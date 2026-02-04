@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../koneksi.php';
+include 'NavbarAdmin.php';
 
 if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../Login.php");
@@ -21,6 +22,9 @@ $data = mysqli_query($conn, "SELECT * FROM beasiswa ORDER BY id DESC");
         body {
             margin: 0;
             background: linear-gradient(90deg, #2ceaaa 0%, #0052ff 100%);
+        }
+
+        .main-wrapper {
             padding: 40px;
         }
 
@@ -29,6 +33,7 @@ $data = mysqli_query($conn, "SELECT * FROM beasiswa ORDER BY id DESC");
             max-width: 1200px;
             margin: auto;
             background: white;
+            text-align: center;
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, .15);

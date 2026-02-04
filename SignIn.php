@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'koneksi.php';
 include 'Navbar.php';
 
@@ -412,10 +413,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="form-group">
             <label for="password">Kata Sandi</label>
             <input type="password" id="password" class="signup-input" placeholder="Masukkan kata sandi" aria-label="Kata Sandi" name="password" required />
+            <div style="display: flex;">
+              <input type="checkbox" onclick="myFunction()">
+              <div style="color:#000">Show Password</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="confirm-password">Konfirmasi Kata Sandi</label>
             <input type="password" id="confirm-password" class="signup-input" placeholder="Konfirmasi kata sandi" aria-label="Konfirmasi Kata Sandi" name="confirm-password" required />
+            <div style="display: flex;">
+              <input type="checkbox" onclick="myFunction()">
+              <div style="color:#000">Show Password</div>
+            </div>
           </div>
           <button type="submit" class="signup-button" aria-label="Daftar akun baru">DAFTAR</button>
           <div class="signup-links">
@@ -508,6 +517,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         errorBox.style.display = "block";
       }
     });
+
+    function myFunction() {
+      var x = document.getElementById("password");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
   </script>
 
 </body>

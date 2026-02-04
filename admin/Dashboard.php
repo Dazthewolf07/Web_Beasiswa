@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 
 session_start();
 include '../koneksi.php';
+include 'NavbarAdmin.php';
 
 
 if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
@@ -439,6 +440,7 @@ $deadlineDekat = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as tota
         <div class="menu">
             <a href="AddBeasiswa.php">➕ Tambah Beasiswa</a>
             <a href="KelolaBeasiswa.php">📋 Kelola Beasiswa</a>
+            <a href="Admin_Rating.php">⭐ Lihat Rating Pengunjung</a>
             <a href="../Logout.php">🚪 Logout</a>
         </div>
 

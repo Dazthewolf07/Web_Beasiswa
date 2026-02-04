@@ -54,7 +54,7 @@ VALUES
 ");
 
 if ($query) {
-    header("Location: add_beasiswa.php?success=1");
+    header("Location: Dashboard.php");
     exit;
 } else {
     echo "Gagal menyimpan: " . mysqli_error($conn);

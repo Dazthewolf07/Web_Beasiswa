@@ -9,9 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $password = $_POST['password'];
 
   $query = mysqli_query(
-    $conn,
+    $koneksi,
     "SELECT * FROM users WHERE email='$email'"
   );
+
+  if (!$query) {
+    die(mysqli_error($koneksi));
+  }
 
   if (mysqli_num_rows($query) === 1) {
 
@@ -21,16 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $_SESSION['login'] = true;
       $_SESSION['nama'] = $row['nama'];
-      $_SESSION['user_id'] = $row['id'];
+      $_SESSION['id'] = $row['id'];
       $_SESSION['role'] = $row['role'];
 
-      echo "Login berhasil!";
-
       if ($row['role'] == 'admin') {
-        echo "Admin";
         header("Location: admin/Dashboard.php");
       } else {
-        echo "user";
         header("Location: index.php");
       }
       exit;
@@ -223,6 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       border-color: #7200ff;
     }
 
+
     .login-button {
       background-color: #7200ff;
       border: none;
@@ -409,6 +410,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-group">
           <label for="password">Kata Sandi</label>
           <input type="password" id="password" class="login-input" placeholder="Masukkan kata sandi" aria-label="Kata Sandi" name="password" required />
+          <div style="display: flex;">
+            <input type="checkbox" onclick="myFunction()">
+            <div style="color:#000">Show Password</div>
+          </div>
         </div>
         <button type="submit" class="login-button" aria-label="Masuk ke akun">MASUK</button>
         <div class="login-links">
@@ -453,5 +458,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </section>
 </body>
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+</script>
 
 </html>

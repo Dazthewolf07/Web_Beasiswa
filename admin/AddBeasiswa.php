@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../koneksi.php';
+include 'NavbarAdmin.php';
 
 if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../Login.php");
@@ -469,7 +470,7 @@ $data = mysqli_query($conn, "SELECT * FROM beasiswa ORDER BY id DESC");
 
             <h2>Tambah Beasiswa</h2>
 
-            <form action="proses_tambah_beasiswa.php"
+            <form action="ProsesTambahBeasiswa.php"
                 method="POST"
                 enctype="multipart/form-data">
 

@@ -1,122 +1,141 @@
 <?php
+session_start();
 include 'koneksi.php';
-include 'navbar.php';
+include 'Navbar.php';
+
 $result = mysqli_query($koneksi, "SELECT * FROM beasiswa ORDER BY deadline ASC");
-
-while ($row = mysqli_fetch_assoc($result)) {
 ?>
-    <div class="beasiswa-card">
-
-        <img src="uploads/<?= $row['image']; ?>" width="100%">
-
-        <h3><?= $row['title']; ?></h3>
-
-        <p><?= $row['description']; ?></p>
-
-        <small>Penyelenggara: <?= $row['provider']; ?></small>
-
-        <p>Dana: Rp <?= number_format($row['amount']); ?></p>
-
-        <p>Kuota: <?= $row['quota']; ?></p>
-
-        <p>Deadline: <?= $row['deadline']; ?></p>
-
-    </div>
-<?php } ?>
-
-
 
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Beasiswa - Web Beasiswa</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      /* ==== Tambahan CSS Dropdown ==== */
-      .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #004aad;
-        color: black;
-        padding: 10px 20px;
-      }
 
-      .navbar a {
-        color: black;
-        text-decoration: none;
-        margin: 0 10px;
-        font-weight: 500;
-      }
+<head>
+  <style>
+    /* ================= PAGE BACKGROUND ================= */
+    body {
+      background: linear-gradient(90deg, #2ceaaa 0%, #0052ff 100%);
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
-      .navbar-menu {
-        display: flex;
-        align-items: center;
-        position: relative;
-      }
+    /* ================= SECTION ================= */
+    .beasiswa-section {
+      padding: 80px 60px;
+      max-width: 1300px;
+      margin: auto;
+    }
 
-      .btn-daftar {
-        background-color: #7200ff;
-        padding: 8px 22.4px;
-        border-radius: 8px;
-        color: white;
-        font-weight: 700;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
+    .beasiswa-section h2 {
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: black;
+    }
 
-      /* ==== Konten Beasiswa ==== */
+    /* ================= GRID ================= */
+    .beasiswa-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    /* ================= CARD ================= */
+    .beasiswa-card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, .08);
+      transition: .3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .beasiswa-card:hover {
+      transform: translateY(-6px);
+    }
+
+    /* ================= IMAGE ================= */
+    .beasiswa-img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+      background: #f3f4f6;
+      padding: 10px;
+    }
+
+    /* ================= CONTENT ================= */
+    .beasiswa-card h3 {
+      padding: 18px 20px 5px;
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .beasiswa-card .desc {
+      padding: 0 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .beasiswa-card small {
+      padding: 8px 20px;
+      color: #777;
+    }
+
+    /* ================= INFO ROW ================= */
+    .beasiswa-card .info {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 20px;
+      font-weight: 600;
+    }
+
+    /* ================= DEADLINE ================= */
+    .deadline {
+      padding: 12px 20px 18px;
+      font-weight: bold;
+      color: #e03a3a;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media(max-width:768px) {
       .beasiswa-section {
         padding: 60px 20px;
-        text-align: center;
       }
+    }
+  </style>
+</head>
 
-      .beasiswa-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-        margin-top: 40px;
-      }
+<body>
 
-      .beasiswa-card {
-        background-color: grey;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        text-align: left;
-      }
+  <!-- 🔽 BAGIAN PERTAMA MASUK DI SINI -->
+  <div class="beasiswa-section">
+    <h2>Daftar Beasiswa</h2>
 
-      .beasiswa-card h3 {
-        margin-top: 0;
-        color: #004aad;
-      }
+    <div class="beasiswa-list">
+      <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+        <div class="beasiswa-card">
 
-      .beasiswa-card p {
-        color: #555;
-      }
-    </style>
-  </head>
+          <img class="beasiswa-img" src="uploads/<?= $row['image']; ?>" alt="<?= $row['title']; ?>">
 
-  <body>
-  
-    <!-- ===== Konten Halaman Beasiswa ===== -->
-    <section class="beasiswa-section">
-      <h1>Daftar Beasiswa yang Tersedia</h1>
-      <p>Temukan berbagai peluang beasiswa yang sesuai dengan minat dan kebutuhanmu.</p>
+          <h3><?= $row['title']; ?></h3>
 
-      <div class="beasiswa-list">
-        <div class="beasiswa-card" id="na">
-          <h3>Beasiswa SMA/SMK</h3>
-          <p>Program beasiswa yang diselenggarakan oleh pemerintah Indonesia untuk siswa SMA/SMK</p>
+          <p class="desc"><?= $row['description']; ?></p>
+
+          <small>Penyelenggara: <?= $row['provider']; ?></small>
+
+          <div class="info">
+            <span>Dana: Rp <?= number_format($row['amount']); ?></span>
+            <span>Kuota: <?= $row['quota']; ?></span>
+          </div>
+
+          <p class="deadline">📅 <?= $row['deadline']; ?></p>
+
         </div>
+      <?php } ?>
+    </div>
+  </div>
 
-        <div class="beasiswa-card" id="S1">
-          <h3>Beasiswa S1</h3>
-          <p>Program beasiswa yang disenggarakan oleh pemerintah bersama dengan ptn Indonesia untuk Mahasiswa yang baru lulus SMA/SMK</p>
-        </div>
-      </div>
-    </section>
-  </body>
+</body>
+
 </html>
